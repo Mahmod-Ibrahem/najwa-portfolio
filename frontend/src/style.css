@@ -2,21 +2,22 @@
 
 /* Custom theme configuration for Tailwind v4 */
 @theme {
-    --color-primary-50: #f0f9ff;
-    --color-primary-100: #e0f2fe;
-    --color-primary-200: #bae6fd;
-    --color-primary-300: #7dd3fc;
-    --color-primary-400: #38bdf8;
-    --color-primary-500: #0ea5e9;
-    --color-primary-600: #0284c7;
-    --color-primary-700: #0369a1;
-    --color-primary-800: #075985;
-    --color-primary-900: #0c4a6e;
+    /* Brand identity palette */
+    --color-primary-50: #fffdfb;
+    --color-primary-100: #f2ece6;
+    --color-primary-200: #e0d6cc;
+    --color-primary-300: #c9bdb0;
+    --color-primary-400: #b3a595;
+    --color-primary-500: #9d8d7b;
+    --color-primary-600: #877562;
+    --color-primary-700: #6f5d4a;
+    --color-primary-800: #574633;
+    --color-primary-900: #3f2f1e;
 
-    --color-dark-900: #0f172a;
-    --color-dark-800: #1e293b;
-    --color-dark-700: #334155;
-    --color-dark-600: #475569;
+    --color-dark-900: #111e2e;
+    --color-dark-800: #1b2a3b;
+    --color-dark-700: #24354a;
+    --color-dark-600: #2e4059;
 }
 
 /* Dark mode support */
@@ -26,10 +27,10 @@
 @layer components {
     /* Form inputs */
     .input {
-        @apply w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 
-           bg-white dark:bg-slate-800 text-slate-900 dark:text-white 
-           placeholder:text-slate-400 dark:placeholder:text-slate-500
-           focus:ring-2 focus:ring-sky-500 focus:border-transparent focus:outline-none
+        @apply w-full px-4 py-3 rounded-lg border border-[#E0D6CC] dark:border-[#24354a] 
+           bg-white dark:bg-[#1B2A3B] text-slate-900 dark:text-[#FFFDFB] 
+           placeholder:text-slate-400 dark:placeholder:text-[#9d8d7b]
+           focus:ring-2 focus:ring-[#E0D6CC] focus:border-transparent focus:outline-none
            transition-all duration-200;
     }
 
@@ -37,17 +38,17 @@
     .btn {
         @apply px-6 py-3 rounded-lg font-semibold transition-all duration-200 cursor-pointer
            focus:outline-none focus:ring-2 focus:ring-offset-2 
-           dark:focus:ring-offset-slate-900 inline-flex items-center justify-center gap-2;
+           dark:focus:ring-offset-[#1B2A3B] inline-flex items-center justify-center gap-2;
     }
 
     .btn-primary {
-        @apply bg-sky-600 hover:bg-sky-700 text-white 
-           focus:ring-sky-500 disabled:opacity-60 disabled:cursor-not-allowed;
+        @apply bg-[#F2ECE6] hover:bg-[#E0D6CC] text-[#1B2A3B] 
+           focus:ring-[#E0D6CC] disabled:opacity-60 disabled:cursor-not-allowed;
     }
 
     .btn-secondary {
-        @apply bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 
-           dark:hover:bg-slate-600 text-slate-900 dark:text-white;
+        @apply bg-slate-200 dark:bg-[#24354a] hover:bg-slate-300 
+           dark:hover:bg-[#2e4059] text-slate-900 dark:text-[#FFFDFB];
     }
 
     .btn-danger {
@@ -56,13 +57,13 @@
 
     /* Cards */
     .card {
-        @apply bg-white dark:bg-slate-800 rounded-xl shadow-lg 
-           border border-slate-200 dark:border-slate-700;
+        @apply bg-white dark:bg-[#1B2A3B] rounded-xl shadow-lg 
+           border border-slate-200 dark:border-[#24354a];
     }
 
     /* Table styles */
     .table-container {
-        @apply overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700;
+        @apply overflow-x-auto rounded-xl border border-slate-200 dark:border-[#24354a];
     }
 
     .table {
@@ -70,17 +71,17 @@
     }
 
     .table th {
-        @apply bg-slate-100 dark:bg-slate-700 px-4 py-3 text-sm font-semibold 
-           text-slate-700 dark:text-slate-200 uppercase tracking-wider;
+        @apply bg-slate-100 dark:bg-[#24354a] px-4 py-3 text-sm font-semibold 
+           text-slate-700 dark:text-[#F2ECE6] uppercase tracking-wider;
     }
 
     .table td {
-        @apply px-4 py-3 border-t border-slate-200 dark:border-slate-700
-           text-slate-800 dark:text-slate-200;
+        @apply px-4 py-3 border-t border-slate-200 dark:border-[#24354a]
+           text-slate-800 dark:text-[#F2ECE6];
     }
 
     .table tr:hover td {
-        @apply bg-slate-50 dark:bg-slate-700/50;
+        @apply bg-slate-50 dark:bg-[#24354a]/50;
     }
 
     /* Badge */
@@ -102,12 +103,12 @@
 
     /* Sidebar */
     .sidebar-link {
-        @apply flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-300
-           hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors duration-200;
+        @apply flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-[#E0D6CC]
+           hover:bg-slate-100 dark:hover:bg-[#24354a] transition-colors duration-200;
     }
 
     .sidebar-link.active {
-        @apply bg-sky-50 dark:bg-sky-900/30 text-sky-700 dark:text-sky-400
+        @apply bg-[#F2ECE6]/10 dark:bg-[#F2ECE6]/10 text-[#F2ECE6] dark:text-[#F2ECE6]
            font-medium;
     }
 }
@@ -120,41 +121,41 @@
 
     /* Inputs (InputText, TextArea, InputNumber) */
     .p-inputtext {
-        @apply w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 
-           bg-white dark:bg-slate-800 text-slate-900 dark:text-gray-100 
-           placeholder:text-slate-400 dark:placeholder:text-slate-500
+        @apply w-full px-4 py-3 rounded-lg border border-[#E0D6CC] dark:border-[#24354a] 
+           bg-white dark:bg-[#1B2A3B] text-slate-900 dark:text-[#FFFDFB] 
+           placeholder:text-slate-400 dark:placeholder:text-[#9d8d7b]
            transition-all duration-200 shadow-sm
-           hover:border-slate-400 dark:hover:border-slate-500
-           focus:border-sky-500 dark:focus:border-sky-500 
-           focus:ring-2 focus:ring-sky-500/20 focus:outline-none;
+           hover:border-[#c9bdb0] dark:hover:border-[#2e4059]
+           focus:border-[#E0D6CC] dark:focus:border-[#E0D6CC] 
+           focus:ring-2 focus:ring-[#E0D6CC]/20 focus:outline-none;
     }
 
     .p-inputtext:disabled {
-        @apply opacity-70 cursor-not-allowed bg-slate-100 dark:bg-slate-700 text-slate-500 ;
+        @apply opacity-70 cursor-not-allowed bg-slate-100 dark:bg-[#24354a] text-slate-500;
     }
 
     /* Select (Dropdown) & MultiSelect */
     .p-select,
     .p-multiselect {
-        @apply w-full rounded-lg border border-slate-300 dark:border-slate-600 
-           bg-white dark:bg-slate-800 text-slate-900 dark:text-gray-100
+        @apply w-full rounded-lg border border-[#E0D6CC] dark:border-[#24354a] 
+           bg-white dark:bg-[#1B2A3B] text-slate-900 dark:text-[#FFFDFB]
            transition-all duration-200 shadow-sm flex items-center
-           hover:border-slate-400 dark:hover:border-slate-500 ;
+           hover:border-[#c9bdb0] dark:hover:border-[#2e4059];
     }
 
     .p-select:not(.p-disabled).p-focus,
     .p-multiselect:not(.p-disabled).p-focus {
-        @apply border-sky-500 dark:border-sky-500 ring-2 ring-sky-500/20 outline-none ;
+        @apply border-[#E0D6CC] dark:border-[#E0D6CC] ring-2 ring-[#E0D6CC]/20 outline-none;
     }
 
     .p-select-label,
     .p-multiselect-label {
-        @apply px-4 py-3 text-slate-900 dark:text-gray-100 ;
+        @apply px-4 py-3 text-slate-900 dark:text-[#FFFDFB];
     }
 
     .p-select-dropdown,
     .p-multiselect-dropdown {
-        @apply w-10 text-slate-500 dark:text-slate-400 ;
+        @apply w-10 text-slate-500 dark:text-[#E0D6CC];
     }
 
     /* Overlays/Panels (Dropdown list, Datepicker panel) */
@@ -164,99 +165,106 @@
     .p-dialog,
     .p-popover,
     .p-cascadeselect-overlay {
-        @apply bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 
-           rounded-xl shadow-xl ;
+        @apply bg-white dark:bg-[#1B2A3B] border border-slate-200 dark:border-[#24354a] 
+           rounded-xl shadow-xl;
     }
 
     .p-select-list-container,
     .p-multiselect-list-container {
-        @apply p-1 ;
+        @apply p-1;
     }
 
     .p-select-option,
     .p-multiselect-option {
-        @apply px-3 py-2 rounded-lg text-slate-700 dark:text-slate-200 
-           transition-colors duration-150 cursor-pointer my-0.5 ;
+        @apply px-3 py-2 rounded-lg text-slate-700 dark:text-[#F2ECE6] 
+           transition-colors duration-150 cursor-pointer my-0.5;
     }
 
     .p-select-option:not(.p-select-option-selected):not(.p-disabled).p-focus,
-    .p-multiselect-option:not(.p-multiselect-option-selected):not(.p-disabled).p-focus {
-        @apply bg-slate-100 dark:bg-slate-700/50 text-slate-900 dark:text-white ;
+    .p-multiselect-option:not(.p-multiselect-option-selected):not(
+            .p-disabled
+        ).p-focus {
+        @apply bg-slate-100 dark:bg-[#24354a]/50 text-slate-900 dark:text-[#FFFDFB];
     }
 
     .p-select-option.p-select-option-selected,
     .p-multiselect-option.p-multiselect-option-selected {
-        @apply bg-sky-50 dark:bg-sky-900/30 text-sky-700 dark:text-sky-300 font-medium ;
+        @apply bg-[#F2ECE6]/10 dark:bg-[#F2ECE6]/10 text-[#1B2A3B] dark:text-[#F2ECE6] font-medium;
     }
 
     /* DatePicker Specifics */
     .p-datepicker-header {
-        @apply bg-transparent border-b border-slate-200 dark:border-slate-700 p-3 
-           text-slate-800 dark:text-white ;
+        @apply bg-transparent border-b border-slate-200 dark:border-[#24354a] p-3 
+           text-slate-800 dark:text-[#FFFDFB];
     }
 
     .p-datepicker-title {
-        @apply text-slate-800 dark:text-white font-semibold ;
+        @apply text-slate-800 dark:text-[#FFFDFB] font-semibold;
     }
 
     .p-datepicker table th {
-        @apply text-slate-500 dark:text-slate-400 font-medium p-2 ;
-    }
-    
-    .p-datepicker table td {
-        @apply p-1 ;
+        @apply text-slate-500 dark:text-[#E0D6CC] font-medium p-2;
     }
 
-    .p-datepicker table td > span.p-datepicker-day:not(.p-datepicker-day-selected):not(.p-disabled):hover {
-        @apply bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white ;
+    .p-datepicker table td {
+        @apply p-1;
+    }
+
+    .p-datepicker
+        table
+        td
+        > span.p-datepicker-day:not(.p-datepicker-day-selected):not(
+            .p-disabled
+        ):hover {
+        @apply bg-slate-100 dark:bg-[#24354a] text-slate-900 dark:text-[#FFFDFB];
     }
 
     .p-datepicker table td > span.p-datepicker-day-selected {
-        @apply bg-sky-600 text-white ;
+        @apply bg-[#F2ECE6] text-[#1B2A3B];
     }
-    
+
     .p-datepicker table td > span.p-datepicker-today > span {
-         @apply bg-slate-100 dark:bg-slate-700 rounded-full ;
+        @apply bg-slate-100 dark:bg-[#24354a] rounded-full;
     }
 
     /* Dialog Global Refinement */
     .p-dialog-header {
-        @apply bg-transparent border-b border-slate-200 dark:border-slate-700 p-5 
-           text-slate-800 dark:text-white items-center ;
+        @apply bg-transparent border-b border-slate-200 dark:border-[#24354a] p-5 
+           text-slate-800 dark:text-[#FFFDFB] items-center;
     }
 
     .p-dialog-title {
-        @apply text-xl font-bold ;
+        @apply text-xl font-bold;
     }
 
     .p-dialog-content {
-        @apply bg-transparent p-6 text-slate-700 dark:text-slate-300 ;
+        @apply bg-transparent p-6 text-slate-700 dark:text-[#F2ECE6];
     }
 
     .p-dialog-footer {
-        @apply bg-transparent border-t border-slate-200 dark:border-slate-700 p-5 gap-2 ;
+        @apply bg-transparent border-t border-slate-200 dark:border-[#24354a] p-5 gap-2;
     }
 
     .p-dialog-header-actions button {
-        @apply text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 
-           hover:bg-slate-100 dark:hover:bg-slate-700/50 rounded-full w-8 h-8 transition-colors ;
+        @apply text-slate-400 hover:text-slate-600 dark:text-[#E0D6CC] dark:hover:text-[#FFFDFB] 
+           hover:bg-slate-100 dark:hover:bg-[#24354a]/50 rounded-full w-8 h-8 transition-colors;
     }
-    
+
     /* Checkbox */
     .p-checkbox-box {
-        @apply rounded border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800
-           peer-focus:ring-2 peer-focus:ring-sky-500/20 ;
+        @apply rounded border-[#E0D6CC] dark:border-[#24354a] bg-white dark:bg-[#1B2A3B]
+           peer-focus:ring-2 peer-focus:ring-[#E0D6CC]/20;
     }
-    
+
     .p-checkbox-checked .p-checkbox-box {
-        @apply bg-sky-600 border-sky-600 text-white ;
+        @apply bg-[#F2ECE6] border-[#F2ECE6] text-[#1B2A3B];
     }
 }
 
 /* Base styles */
 @layer base {
     body {
-        @apply bg-white dark:bg-slate-900 text-slate-800 dark:text-white transition-colors duration-200;
+        @apply bg-white dark:bg-[#111e2e] text-slate-800 dark:text-[#FFFDFB] transition-colors duration-200;
         font-family: "Inter", system-ui, sans-serif;
     }
 

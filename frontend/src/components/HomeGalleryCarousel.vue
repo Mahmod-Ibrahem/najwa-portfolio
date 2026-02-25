@@ -286,7 +286,7 @@ onUnmounted(() => {
 .gallery-section {
     position: relative;
     padding: 6rem 0 5rem;
-    background: #0d0d0d;
+    background: #162436;
     overflow: hidden;
 }
 
@@ -294,8 +294,8 @@ onUnmounted(() => {
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, .02) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, .015) 0%, transparent 50%);
+        radial-gradient(circle at 20% 20%, rgba(242, 236, 230, .02) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(242, 236, 230, .015) 0%, transparent 50%);
     pointer-events: none;
 }
 
@@ -325,9 +325,9 @@ onUnmounted(() => {
     align-items: center;
     justify-content: center;
     border-radius: 12px;
-    background: rgba(255, 255, 255, .06);
-    border: 1px solid rgba(255, 255, 255, .08);
-    color: #ccc;
+    background: rgba(242, 236, 230, .06);
+    border: 1px solid rgba(242, 236, 230, .08);
+    color: #E0D6CC;
 }
 
 .gallery-section-icon svg {
@@ -338,7 +338,7 @@ onUnmounted(() => {
 .gallery-section-title {
     font-size: 1.8rem;
     font-weight: 800;
-    color: #f1f1f1;
+    color: #FFFDFB;
     letter-spacing: -.02em;
 }
 
@@ -346,12 +346,12 @@ onUnmounted(() => {
     flex: 1;
     max-width: 120px;
     height: 1px;
-    background: linear-gradient(90deg, rgba(255, 255, 255, .15), transparent);
+    background: linear-gradient(90deg, rgba(242, 236, 230, .15), transparent);
 }
 
 .gallery-section-subtitle {
     text-align: center;
-    color: #888;
+    color: #E0D6CC;
     font-size: .95rem;
     margin-bottom: 2.5rem;
 }
@@ -381,14 +381,14 @@ onUnmounted(() => {
     aspect-ratio: 4 / 3;
     border-radius: 14px;
     overflow: hidden;
-    background: #1a1a1a;
-    border: 1px solid rgba(255, 255, 255, .04);
+    background: #1e2f42;
+    border: 1px solid rgba(242, 236, 230, .04);
 }
 
 .skeleton-shimmer {
     width: 100%;
     height: 100%;
-    background: linear-gradient(110deg, #1a1a1a 30%, #252525 50%, #1a1a1a 70%);
+    background: linear-gradient(110deg, #1e2f42 30%, #24354a 50%, #1e2f42 70%);
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
 }
@@ -425,8 +425,8 @@ onUnmounted(() => {
 }
 
 .gallery-state-icon--empty {
-    background: rgba(255, 255, 255, .04);
-    color: #555;
+    background: rgba(242, 236, 230, .04);
+    color: #E0D6CC;
 }
 
 .gallery-state-icon--error {
@@ -481,8 +481,8 @@ onUnmounted(() => {
     border-radius: 14px;
     overflow: hidden;
     cursor: pointer;
-    background: #181818;
-    border: 1px solid rgba(255, 255, 255, .05);
+    background: #1e2f42;
+    border: 1px solid rgba(242, 236, 230, .06);
     transition: transform .4s cubic-bezier(.4, 0, .2, 1), box-shadow .4s ease;
 }
 
@@ -548,7 +548,7 @@ onUnmounted(() => {
 }
 
 .gallery-slide-title {
-    color: #f1f1f1;
+    color: #FFFDFB;
     font-size: .9rem;
     font-weight: 600;
     text-shadow: 0 1px 8px rgba(0, 0, 0, .5);
@@ -572,17 +572,17 @@ onUnmounted(() => {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: rgba(255, 255, 255, .08);
+    background: rgba(242, 236, 230, .08);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, .1);
-    color: #ccc;
+    border: 1px solid rgba(242, 236, 230, .1);
+    color: #E0D6CC;
     cursor: pointer;
     transition: all .25s;
 }
 
 .gallery-nav:hover {
-    background: rgba(255, 255, 255, .16);
-    color: #fff;
+    background: rgba(242, 236, 230, .16);
+    color: #FFFDFB;
     transform: scale(1.08);
 }
 
@@ -618,7 +618,7 @@ onUnmounted(() => {
 :deep(.swiper-pagination-bullet) {
     width: 8px;
     height: 8px;
-    background: rgba(255, 255, 255, .2);
+    background: rgba(242, 236, 230, .2);
     border-radius: 100px;
     opacity: 1;
     transition: all .3s;
@@ -626,7 +626,7 @@ onUnmounted(() => {
 
 :deep(.swiper-pagination-bullet-active) {
     width: 28px;
-    background: #fff;
+    background: #F2ECE6;
 }
 
 /* ══════════════════════════════════════ */
@@ -654,8 +654,8 @@ onUnmounted(() => {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: rgba(255, 255, 255, .08);
-    color: #ddd;
+    background: rgba(242, 236, 230, .08);
+    color: #E0D6CC;
     border: none;
     cursor: pointer;
     transition: all .2s;
@@ -663,8 +663,8 @@ onUnmounted(() => {
 }
 
 .lb-close:hover {
-    background: rgba(255, 255, 255, .16);
-    color: #fff;
+    background: rgba(242, 236, 230, .16);
+    color: #FFFDFB;
     transform: rotate(90deg);
 }
 
@@ -679,17 +679,17 @@ onUnmounted(() => {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: rgba(255, 255, 255, .06);
+    background: rgba(242, 236, 230, .06);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, .1);
-    color: #ccc;
+    border: 1px solid rgba(242, 236, 230, .1);
+    color: #E0D6CC;
     cursor: pointer;
     transition: all .25s;
 }
 
 .lb-arrow:hover {
-    background: rgba(255, 255, 255, .14);
-    color: #fff;
+    background: rgba(242, 236, 230, .14);
+    color: #FFFDFB;
     transform: translateY(-50%) scale(1.08);
 }
 

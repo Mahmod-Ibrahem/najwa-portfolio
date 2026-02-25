@@ -136,31 +136,31 @@ const scrollTo = (id) => {
 }
 
 .navbar--scrolled {
-    background: rgba(255, 255, 255, .82);
+    background: rgba(27, 42, 59, .92);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid rgba(242, 236, 230, .1);
 }
 
 .navbar:not(.navbar--scrolled) .nav-logo {
-    color: #ffffff;
+    color: #FFFDFB;
 }
 
 .navbar:not(.navbar--scrolled) .nav-link {
-    color: #e2e8f0;
+    color: #E0D6CC;
 }
 
 .navbar:not(.navbar--scrolled) .nav-link:hover {
-    color: #ffffff;
+    color: #FFFDFB;
 }
 
 .navbar:not(.navbar--scrolled) .nav-btn {
-    background: #ffffff;
-    color: #0a0a0a;
+    background: #F2ECE6;
+    color: #1B2A3B;
 }
 
 .navbar:not(.navbar--scrolled) .hamburger-line {
-    background-color: #ffffff;
+    background-color: #FFFDFB;
 }
 
 .nav-inner {
@@ -176,7 +176,7 @@ const scrollTo = (id) => {
     font-size: 1.25rem;
     font-weight: 700;
     letter-spacing: -.02em;
-    color: #0a0a0a;
+    color: #1B2A3B;
     transition: color 0.3s ease;
 }
 
@@ -190,7 +190,7 @@ const scrollTo = (id) => {
     border: none;
     font-size: 0.95rem;
     font-weight: 600;
-    color: #4b5563;
+    color: #E0D6CC;
     cursor: pointer;
     transition: color 0.2s;
     font-family: inherit;
@@ -198,7 +198,7 @@ const scrollTo = (id) => {
 }
 
 .nav-link:hover {
-    color: #0a0a0a;
+    color: #FFFDFB;
 }
 
 @media (min-width: 992px) {
@@ -222,8 +222,8 @@ const scrollTo = (id) => {
     padding: 8px 20px;
     border-radius: 100px;
     border: none;
-    background: #0a0a0a;
-    color: #fff;
+    background: #1B2A3B;
+    color: #FFFDFB;
     font-weight: 600;
     font-size: .85rem;
     cursor: pointer;
@@ -267,7 +267,7 @@ const scrollTo = (id) => {
     display: block;
     height: 2px;
     width: 100%;
-    background-color: #0a0a0a;
+    background-color: #FFFDFB;
     /* Default color */
     border-radius: 2px;
     transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
@@ -301,8 +301,8 @@ const scrollTo = (id) => {
     right: 0;
     height: 100vh;
     width: 280px;
-    background: #ffffff;
-    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.1);
+    background: #1B2A3B;
+    box-shadow: -4px 0 24px rgba(0, 0, 0, .2);
     z-index: 995;
     display: flex;
     flex-direction: column;
@@ -313,7 +313,7 @@ const scrollTo = (id) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid rgba(242, 236, 230, .1);
     padding-bottom: 1.25rem;
     margin-bottom: 1.5rem;
 }
@@ -321,21 +321,21 @@ const scrollTo = (id) => {
 .drawer-logo {
     font-size: 1.1rem;
     font-weight: 700;
-    color: #0a0a0a;
+    color: #FFFDFB;
 }
 
 .close-btn {
     background: none;
     border: none;
     font-size: 1.2rem;
-    color: #64748b;
+    color: #E0D6CC;
     cursor: pointer;
     font-weight: bold;
     padding: 0.25rem;
 }
 
 .close-btn:hover {
-    color: #0a0a0a;
+    color: #FFFDFB;
 }
 
 .drawer-links {
@@ -352,15 +352,15 @@ const scrollTo = (id) => {
     padding: 0.75rem 1rem;
     font-size: 1rem;
     font-weight: 500;
-    color: #475569;
+    color: #E0D6CC;
     cursor: pointer;
     border-radius: 0.5rem;
     transition: background-color 0.2s, color 0.2s;
 }
 
 .drawer-link:hover {
-    background-color: #f8fafc;
-    color: #0a0a0a;
+    background-color: rgba(242, 236, 230, .08);
+    color: #FFFDFB;
 }
 
 /* ── Transitions ── */
