@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             SettingSeeder::class,
             ArticleSeeder::class,
             VideoSeeder::class,
+            BookSeeder::class,
         ]);
     }
 }

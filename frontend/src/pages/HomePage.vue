@@ -60,6 +60,15 @@ async function loadVideos(page = 1) {
     videosLoading.value = false
 }
 
+/* ── Books ── */
+const books = ref([])
+async function loadBooks() {
+    try {
+        const res = await api.get('/v1/books', { params: { is_published: 1, per_page: 50 } })
+        books.value = res.data.data
+    } catch (e) { /* silent */ }
+}
+
 function truncate(str, len = 100) {
     if (!str) return ''
     return str.length > len ? str.substring(0, len) + '…' : str
@@ -88,6 +97,7 @@ onMounted(async () => {
     await loadHomeSingleton()
     loadArticles()
     loadVideos()
+    loadBooks()
     // Track visit (fire-and-forget)
     api.post('/v1/track-visit').catch(() => { })
     await nextTick()
@@ -107,7 +117,7 @@ onUnmounted(() => observer?.disconnect())
         <template v-else-if="page">
 
             <!-- ═══════════════ NAVBAR ═══════════════ -->
-            <HomeNavbar :logoText="page.hero_name?.split(' ').slice(0, 2).join(' ') || 'أوس الفوزان'" />
+            <HomeNavbar :logoText="page.hero_name?.split(' ').slice(0, 2).join(' ') || 'د. نجوى المطيري'" />
 
             <!-- ═══════════════ HERO  100vh ═══════════════ -->
             <header class="hero" id="hero" role="banner">
@@ -136,7 +146,7 @@ onUnmounted(() => observer?.disconnect())
                         <div class="hero-ring hero-ring--outer" aria-hidden="true"></div>
                         <div class="hero-ring hero-ring--inner" aria-hidden="true"></div>
                         <img :src="page.hero_image || 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800'"
-                            alt="الأمن السيبراني" class="hero-img" loading="eager" />
+                            alt="د. نجوى المطيري" class="hero-img" loading="eager" />
                     </div>
                 </div>
 
@@ -372,6 +382,46 @@ onUnmounted(() => observer?.disconnect())
 
             <!-- ═══════════════ GALLERY CAROUSEL ═══════════════ -->
             <HomeGalleryCarousel />
+
+            <!-- ═══════════════ BOOKS CAROUSEL ═══════════════ -->
+            <section v-if="books.length" class="section-books" id="books">
+                <div class="books-bg" aria-hidden="true"></div>
+                <div class="homepage-container"
+                    style="max-width:1200px;margin:0 auto;padding:0 24px;position:relative;z-index:1;">
+                    <!-- Heading -->
+                    <div class="books-heading reveal">
+                        <span class="books-heading__icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.5">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+                            </svg>
+                        </span>
+                        <h2 class="books-heading__text">الكتب</h2>
+                        <span class="books-heading__line" aria-hidden="true"></span>
+                    </div>
+
+                    <!-- Carousel -->
+                    <div class="books-carousel">
+                        <div class="books-track">
+                            <a v-for="book in books" :key="book.id" :href="book.url" target="_blank"
+                                rel="noopener noreferrer" class="book-slide">
+                                <div class="book-slide__img-wrap">
+                                    <img v-if="book.image" :src="book.image" alt="" class="book-slide__img"
+                                        loading="lazy" />
+                                    <div v-else class="book-slide__placeholder">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none"
+                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             <!-- ═══════════════ FOOTER / CONTACT ═══════════════ -->
             <footer class="site-footer" id="contact" role="contentinfo">
@@ -2239,6 +2289,152 @@ onUnmounted(() => observer?.disconnect())
 
     .section-content {
         padding: 60px 0;
+    }
+}
+
+/* ═══════════ BOOKS CAROUSEL ═══════════ */
+.section-books {
+    padding: 7rem 0;
+    background: linear-gradient(170deg, #152233 0%, #1B2A3B 50%, #162436 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.books-bg {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(242, 236, 230, .03) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+}
+
+.books-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.books-heading__icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: rgba(242, 236, 230, .06);
+    border: 1px solid rgba(242, 236, 230, .08);
+    color: #E0D6CC;
+    margin-bottom: .5rem;
+}
+
+.books-heading__icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.books-heading__text {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 800;
+    color: #FFFDFB;
+    letter-spacing: -.02em;
+}
+
+.books-heading__line {
+    width: 50px;
+    height: 3px;
+    border-radius: 100px;
+    background: linear-gradient(90deg, transparent, #E0D6CC, transparent);
+}
+
+/* Carousel Container */
+.books-carousel {
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(242, 236, 230, .15) transparent;
+    padding-bottom: 1rem;
+}
+
+.books-carousel::-webkit-scrollbar {
+    height: 6px;
+}
+
+.books-carousel::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.books-carousel::-webkit-scrollbar-thumb {
+    background: rgba(242, 236, 230, .15);
+    border-radius: 100px;
+}
+
+.books-track {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1rem .5rem;
+    min-width: min-content;
+}
+
+/* Book Slide */
+.book-slide {
+    flex-shrink: 0;
+    width: 180px;
+    text-decoration: none;
+    border-radius: 14px;
+    overflow: hidden;
+    background: rgba(242, 236, 230, .04);
+    border: 1px solid rgba(242, 236, 230, .08);
+    transition: transform .4s cubic-bezier(.25, .46, .45, .94),
+        box-shadow .4s ease,
+        border-color .3s ease;
+    cursor: pointer;
+}
+
+.book-slide:hover {
+    transform: translateY(-12px) scale(1.03);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .35), 0 0 30px rgba(242, 236, 230, .08);
+    border-color: rgba(242, 236, 230, .2);
+}
+
+.book-slide__img-wrap {
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border-radius: 13px;
+}
+
+.book-slide__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .5s cubic-bezier(.25, .46, .45, .94);
+}
+
+.book-slide:hover .book-slide__img {
+    transform: scale(1.06);
+}
+
+.book-slide__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background: #24354a;
+    color: #E0D6CC;
+}
+
+@media (max-width: 640px) {
+    .section-books {
+        padding: 4rem 0 3rem;
+    }
+
+    .book-slide {
+        width: 140px;
+    }
+
+    .books-track {
+        gap: 1rem;
     }
 }
 </style>

@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\V1\VideoController;
 use App\Http\Controllers\Api\V1\HomeController;
 use App\Http\Controllers\Api\V1\StatsController;
 use App\Http\Controllers\Api\GalleryController;
+use App\Http\Controllers\Api\V1\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,10 @@ Route::prefix('v1')->group(function () {
     // Public Gallery routes
     Route::get('galleries', [GalleryController::class, 'index']);
     Route::get('galleries/{gallery}', [GalleryController::class, 'show']);
+
+    // Public Book routes
+    Route::get('books', [BookController::class, 'index']);
+    Route::get('books/{book}', [BookController::class, 'show']);
 
     // Track site visit (public, no auth)
     Route::post('track-visit', [StatsController::class, 'trackVisit']);
@@ -93,6 +98,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('galleries', [GalleryController::class, 'store']);
     Route::post('galleries/{gallery}', [GalleryController::class, 'update']);
     Route::delete('galleries/{gallery}', [GalleryController::class, 'destroy']);
+
+    // Book Management (Auth)
+    Route::post('books', [BookController::class, 'store']);
+    Route::post('books/{book}', [BookController::class, 'update']);
+    Route::delete('books/{book}', [BookController::class, 'destroy']);
 
     // RBAC Routes (Super Admin Only)
     Route::get('roles', [RoleController::class, 'index']); // Allow listing roles for other auth users (e.g. for filtering)

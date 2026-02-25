@@ -147,6 +147,13 @@ const routes = [
         component: () => import('../pages/gallery/GalleryPage.vue'),
         meta: { title: 'معرض الصور' }
       },
+      // Books
+      {
+        path: 'books',
+        name: 'books',
+        component: () => import('../pages/books/BooksPage.vue'),
+        meta: { title: 'الكتب' }
+      },
     ]
   },
   {
