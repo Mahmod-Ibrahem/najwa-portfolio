@@ -4,18 +4,9 @@ import api from '../services/api'
 import HomeNavbar from '../components/HomeNavbar.vue'
 import HomeGalleryCarousel from '../components/HomeGalleryCarousel.vue'
 
-/* ── Home Singleton Data ── */
+/* ── Page / Singleton Data ── */
 const page = ref(null)
 const pageLoading = ref(true)
-
-async function loadHomeSingleton() {
-    pageLoading.value = true
-    try {
-        const res = await api.get('/v1/home-singleton')
-        page.value = res.data.data
-    } catch (e) { /* silent */ }
-    pageLoading.value = false
-}
 
 /* SVG path data for social icons */
 const socialSvgs = {
@@ -25,6 +16,8 @@ const socialSvgs = {
     snapchat: 'M12.206.793c.99 0 4.347.276 5.93 3.821.529 1.193.403 3.219.299 4.847l-.003.06c-.012.18-.022.345-.03.51.075.045.203.09.401.09.3-.016.659-.12 1.033-.301.165-.088.344-.104.464-.104.182 0 .359.029.509.09.45.149.734.479.734.838.015.449-.39.839-1.213 1.168-.089.029-.209.075-.344.119-.45.135-1.139.36-1.333.81-.09.224-.061.524.12.868l.015.015c.06.136 1.526 3.475 4.791 4.014.255.044.435.27.42.509 0 .075-.015.149-.045.225-.24.569-1.273.988-3.146 1.271-.059.091-.12.375-.164.57-.029.179-.074.36-.134.553-.076.271-.27.405-.555.405h-.03c-.135 0-.313-.031-.538-.074-.36-.075-.765-.135-1.273-.135-.3 0-.599.015-.913.074-.6.104-1.123.464-1.723.884-.853.599-1.826 1.288-3.294 1.288-.06 0-.119-.015-.18-.015h-.149c-1.468 0-2.427-.675-3.279-1.288-.599-.42-1.107-.779-1.707-.884-.314-.045-.629-.074-.928-.074-.54 0-.958.089-1.272.149-.211.043-.391.074-.54.074-.374 0-.523-.224-.583-.42-.061-.192-.09-.389-.135-.567-.046-.181-.105-.494-.166-.57-1.918-.222-2.95-.642-3.189-1.226-.031-.063-.052-.15-.055-.225-.015-.243.165-.465.42-.509 3.264-.54 4.73-3.879 4.791-4.02l.016-.029c.18-.345.224-.645.119-.869-.195-.434-.884-.658-1.332-.809-.121-.029-.24-.074-.346-.119-1.107-.435-1.257-.93-1.197-1.273.09-.479.674-.793 1.168-.793.146 0 .27.029.383.074.42.194.789.3 1.104.3.234 0 .384-.06.465-.105l-.046-.569c-.098-1.626-.225-3.651.307-4.837C7.392 1.077 10.739.807 11.727.807l.419-.015h.06z',
     tiktok: 'M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z',
     whatsapp: 'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z',
+    telegram: 'M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zM17.848 8.1c-.183 1.768-.971 6.417-1.372 8.564-.17.907-.503 1.21-.826 1.24-.712.066-1.253-.469-1.942-.92-1.078-.705-1.687-1.143-2.735-1.832-1.211-.798-.426-1.238.265-1.954.18-.188 3.322-3.048 3.383-3.303.007-.033.013-.153-.06-.219s-.18-.043-.257-.026c-.11.025-1.861 1.182-5.247 3.465-.496.34-.945.508-1.347.498-.443-.01-1.296-.25-1.93-.456-.778-.253-1.398-.387-1.344-.817.028-.224.33-.45.904-.678 3.538-1.54 5.895-2.556 7.073-3.046 3.364-1.397 4.06-1.64 4.517-1.648.1 0 .324.025.467.143.12.1.155.234.167.33.012.096.028.273.016.42z',
+    salla: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z'
 }
 
 /* ── Articles & Videos (paginated per 6) ── */
@@ -38,35 +31,51 @@ const videosMeta = ref({})
 const videosPage = ref(1)
 const videosLoading = ref(false)
 
-async function loadArticles(page = 1) {
+/* ── Gallery & Books (all, no pagination) ── */
+const galleries = ref([])
+const books = ref([])
+const licences = ref([])
+
+/* ── Single endpoint to load ALL homepage data ── */
+async function loadHomepageData() {
+    pageLoading.value = true
+    try {
+        const res = await api.get('/v1/homepage-data')
+        const d = res.data.data
+
+        page.value = d.page
+        articles.value = d.articles.data
+        articlesMeta.value = d.articles.meta
+        videos.value = d.videos.data
+        videosMeta.value = d.videos.meta
+        galleries.value = d.galleries || []
+        books.value = d.books || []
+        licences.value = d.licences || []
+    } catch (e) { /* silent */ }
+    pageLoading.value = false
+}
+
+/* ── Pagination (re-calls same endpoint with page param) ── */
+async function loadArticles(pg = 1) {
     articlesLoading.value = true
     try {
-        const res = await api.get('/v1/articles', { params: { is_published: 1, per_page: 6, page } })
+        const res = await api.get('/v1/articles', { params: { is_published: 1, per_page: 6, page: pg } })
         articles.value = res.data.data
         articlesMeta.value = res.data.meta || {}
-        articlesPage.value = page
+        articlesPage.value = pg
     } catch (e) { /* silent */ }
     articlesLoading.value = false
 }
 
-async function loadVideos(page = 1) {
+async function loadVideos(pg = 1) {
     videosLoading.value = true
     try {
-        const res = await api.get('/v1/videos', { params: { is_published: 1, per_page: 6, page } })
+        const res = await api.get('/v1/videos', { params: { is_published: 1, per_page: 6, page: pg } })
         videos.value = res.data.data
         videosMeta.value = res.data.meta || {}
-        videosPage.value = page
+        videosPage.value = pg
     } catch (e) { /* silent */ }
     videosLoading.value = false
-}
-
-/* ── Books ── */
-const books = ref([])
-async function loadBooks() {
-    try {
-        const res = await api.get('/v1/books', { params: { is_published: 1, per_page: 50 } })
-        books.value = res.data.data
-    } catch (e) { /* silent */ }
 }
 
 function truncate(str, len = 100) {
@@ -94,10 +103,7 @@ function initObserver() {
 }
 
 onMounted(async () => {
-    await loadHomeSingleton()
-    loadArticles()
-    loadVideos()
-    loadBooks()
+    await loadHomepageData()
     // Track visit (fire-and-forget)
     api.post('/v1/track-visit').catch(() => { })
     await nextTick()
@@ -163,20 +169,20 @@ onUnmounted(() => observer?.disconnect())
                             <div class="expertise-card__glow" aria-hidden="true"></div>
                             <div class="expertise-card__inner">
                                 <div class="card-icon-wrap">
-                                    <svg v-if="card.icon === 'shield'" xmlns="http://www.w3.org/2000/svg"
+                                    <svg v-if="card.icon === 'users'" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                         <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                            d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
                                     </svg>
-                                    <svg v-if="card.icon === 'bolt'" xmlns="http://www.w3.org/2000/svg"
+                                    <svg v-if="card.icon === 'book-open'" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                         <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                            d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
                                     </svg>
-                                    <svg v-if="card.icon === 'code'" xmlns="http://www.w3.org/2000/svg"
+                                    <svg v-if="card.icon === 'academic-cap'" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                                         <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                                            d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
                                     </svg>
                                 </div>
                                 <h3 class="card-title">{{ card.title }}</h3>
@@ -381,7 +387,7 @@ onUnmounted(() => observer?.disconnect())
             </section>
 
             <!-- ═══════════════ GALLERY CAROUSEL ═══════════════ -->
-            <HomeGalleryCarousel />
+            <HomeGalleryCarousel :images="galleries" />
 
             <!-- ═══════════════ BOOKS CAROUSEL ═══════════════ -->
             <section v-if="books.length" class="section-books" id="books">
@@ -397,7 +403,7 @@ onUnmounted(() => observer?.disconnect())
                                     d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
                             </svg>
                         </span>
-                        <h2 class="books-heading__text">الكتب</h2>
+                        <h2 class="books-heading__text">مؤلفاتي</h2>
                         <span class="books-heading__line" aria-hidden="true"></span>
                     </div>
 
@@ -419,6 +425,39 @@ onUnmounted(() => observer?.disconnect())
                                 </div>
                             </a>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══════════════ LICENCES SECTION ═══════════════ -->
+            <section v-if="licences.length" class="section-content section-content--dark" id="licences"
+                aria-labelledby="licences-heading">
+                <div class="container">
+                    <h2 id="licences-heading" class="section-heading reveal">الرخص المعتمدة</h2>
+
+                    <div class="content-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+                        <article class="content-card reveal" v-for="licence in licences" :key="licence.id"
+                            style="min-height: 200px;">
+                            <div class="content-card__border"></div>
+                            <div
+                                class="content-card__inner p-6 flex flex-col items-center justify-center text-center gap-4 h-full">
+                                <div
+                                    class="w-16 h-16 rounded-full bg-sky-100/10 flex items-center justify-center text-sky-400 mb-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-bold" style="color:#FFFDFB">{{ licence.title }}</h3>
+                                <div class="px-4 py-2 mt-auto rounded-lg inline-flex items-center gap-3"
+                                    style="background: rgba(242, 236, 230, .06); border: 1px solid rgba(242, 236, 230, .1);">
+                                    <span class="text-sm" style="color:#E0D6CC">رقم الرخصة:</span>
+                                    <span class="font-mono font-bold tracking-widest" dir="ltr" style="color:#FFFDFB">{{
+                                        licence.licence_number }}</span>
+                                </div>
+                            </div>
+                        </article>
                     </div>
                 </div>
             </section>

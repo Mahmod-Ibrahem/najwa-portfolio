@@ -17,35 +17,8 @@
             </div>
             <p class="gallery-section-subtitle reveal">لقطات مختارة من الأنشطة والفعاليات</p>
 
-            <!-- Skeleton Loader -->
-            <div v-if="loading" class="gallery-skeleton-row">
-                <div v-for="n in 4" :key="n" class="gallery-skeleton-card">
-                    <div class="skeleton-shimmer"></div>
-                </div>
-            </div>
-
-            <!-- Error State -->
-            <div v-else-if="error" class="gallery-state">
-                <div class="gallery-state-icon gallery-state-icon--error">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="1.5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
-                    </svg>
-                </div>
-                <p class="gallery-state-text">فشل في تحميل الصور</p>
-                <button class="gallery-retry-btn" @click="fetchGallery">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182" />
-                    </svg>
-                    إعادة المحاولة
-                </button>
-            </div>
-
             <!-- Empty State -->
-            <div v-else-if="!images.length" class="gallery-state">
+            <div v-if="!images || !images.length" class="gallery-state">
                 <div class="gallery-state-icon gallery-state-icon--empty">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="1">
@@ -166,36 +139,19 @@
 import { ref, reactive, onMounted, onUnmounted, nextTick, watch } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay, Pagination, Navigation } from 'swiper/modules'
-import api from '../services/api'
 
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 
-const swiperModules = [Autoplay, Pagination, Navigation]
-
-/* ── Data ── */
-const images = ref([])
-const loading = ref(true)
-const error = ref(false)
-
-async function fetchGallery() {
-    loading.value = true
-    error.value = false
-    try {
-        const { data } = await api.get('/v1/galleries', {
-            params: { is_active: 1, sort: 'sort_order', per_page: 20 }
-        })
-        images.value = data.data || []
-    } catch {
-        error.value = true
-    } finally {
-        loading.value = false
-        // After data loads, set up reveal observer for the swiper wrap
-        await nextTick()
-        initRevealObserver()
+const props = defineProps({
+    images: {
+        type: Array,
+        default: () => []
     }
-}
+})
+
+const swiperModules = [Autoplay, Pagination, Navigation]
 
 /* ── Self-managed Intersection Observer for reveal ── */
 const swiperWrapRef = ref(null)
@@ -235,7 +191,7 @@ const lbDirection = ref('lb-slide-left')
 const lbRef = ref(null)
 
 function openLightbox(item) {
-    const idx = images.value.findIndex(i => i.id === item.id)
+    const idx = props.images.findIndex(i => i.id === item.id)
     lightbox.index = idx >= 0 ? idx : 0
     lightbox.open = true
     nextTick(() => lbRef.value?.focus())
@@ -247,12 +203,12 @@ function closeLightbox() {
 
 function lbNext() {
     lbDirection.value = 'lb-slide-left'
-    lightbox.index = (lightbox.index + 1) % images.value.length
+    lightbox.index = (lightbox.index + 1) % props.images.length
 }
 
 function lbPrev() {
     lbDirection.value = 'lb-slide-right'
-    lightbox.index = (lightbox.index - 1 + images.value.length) % images.value.length
+    lightbox.index = (lightbox.index - 1 + props.images.length) % props.images.length
 }
 
 function onKeydown(e) {
@@ -268,8 +224,11 @@ watch(() => lightbox.open, (val) => {
 })
 
 onMounted(() => {
-    fetchGallery()
     window.addEventListener('keydown', onKeydown)
+    // Init observer once mounted
+    nextTick(() => {
+        initRevealObserver()
+    })
 })
 
 onUnmounted(() => {

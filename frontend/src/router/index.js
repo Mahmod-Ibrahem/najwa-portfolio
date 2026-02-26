@@ -154,6 +154,25 @@ const routes = [
         component: () => import('../pages/books/BooksPage.vue'),
         meta: { title: 'الكتب' }
       },
+      // Licences
+      {
+        path: 'licences',
+        name: 'licences',
+        component: () => import('../pages/licences/List.vue'),
+        meta: { title: 'الرخص' }
+      },
+      {
+        path: 'licences/create',
+        name: 'licences.create',
+        component: () => import('../pages/licences/Form.vue'),
+        meta: { title: 'إضافة رخصة' }
+      },
+      {
+        path: 'licences/:id/edit',
+        name: 'licences.edit',
+        component: () => import('../pages/licences/Form.vue'),
+        meta: { title: 'تعديل رخصة' }
+      },
     ]
   },
   {

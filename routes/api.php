@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\V1\HomeController;
 use App\Http\Controllers\Api\V1\StatsController;
 use App\Http\Controllers\Api\GalleryController;
 use App\Http\Controllers\Api\V1\BookController;
+use App\Http\Controllers\Api\V1\LicenceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,9 @@ Route::prefix('v1')->group(function () {
     // Home Page Singleton
     Route::get('home-singleton', [HomeController::class, 'singleton']);
 
+    // Single endpoint for all homepage data
+    Route::get('homepage-data', [HomeController::class, 'homepageData']);
+
     // Public Article & Video routes
     Route::get('articles', [ArticleController::class, 'index']);
     Route::get('articles/{article}', [ArticleController::class, 'show']);
@@ -55,6 +59,10 @@ Route::prefix('v1')->group(function () {
     // Public Book routes
     Route::get('books', [BookController::class, 'index']);
     Route::get('books/{book}', [BookController::class, 'show']);
+
+    // Public Licence routes
+    Route::get('licences', [LicenceController::class, 'index']);
+    Route::get('licences/{licence}', [LicenceController::class, 'show']);
 
     // Track site visit (public, no auth)
     Route::post('track-visit', [StatsController::class, 'trackVisit']);
@@ -103,6 +111,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('books', [BookController::class, 'store']);
     Route::post('books/{book}', [BookController::class, 'update']);
     Route::delete('books/{book}', [BookController::class, 'destroy']);
+
+    // Licence Management (Auth)
+    Route::post('licences', [LicenceController::class, 'store']);
+    Route::post('licences/{licence}', [LicenceController::class, 'update']);
+    Route::delete('licences/{licence}', [LicenceController::class, 'destroy']);
 
     // RBAC Routes (Super Admin Only)
     Route::get('roles', [RoleController::class, 'index']); // Allow listing roles for other auth users (e.g. for filtering)

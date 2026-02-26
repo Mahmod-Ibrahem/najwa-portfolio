@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { useAuthStore } from '../../stores/auth'
+import logo from '../../assets/images/logo.png'
 
 const authStore = useAuthStore()
 const route = useRoute()
@@ -53,6 +54,11 @@ const navItems = computed(() => {
         label: 'الكتب',
         icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" /></svg>`
     })
+    items.push({
+        name: 'licences',
+        label: 'الرخص',
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>`
+    })
 
     // Settings section
     items.push({ label: 'الإعدادات', isHeader: true })
@@ -86,7 +92,7 @@ const roleBadge = computed(() => {
             <!-- Logo -->
             <div class="flex items-center justify-between p-4 border-b border-slate-200 dark:border-dark-700">
                 <div v-if="isOpen" class="flex items-center gap-3">
-                    <span class="text-lg font-bold text-slate-900 dark:text-white">أداره الكتب</span>
+                    <img :src="logo" alt="Logo" class="h-14 w-auto" />
                 </div>
                 <button @click="emit('toggle-sidebar')"
                     class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-dark-700 text-slate-600 dark:text-slate-300">

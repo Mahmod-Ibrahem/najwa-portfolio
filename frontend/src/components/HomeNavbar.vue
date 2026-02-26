@@ -2,6 +2,9 @@
 <template>
     <nav class="navbar" :class="{ 'navbar--scrolled': isScrolled }" role="navigation" aria-label="القائمة الرئيسية">
         <div class="nav-inner">
+            <div class="nav-logo" @click="scrollTo('hero')">
+                <img :src="logo" alt="Logo" class="logo-img" />
+            </div>
 
             <!-- Desktop Links -->
             <div class="nav-links">
@@ -11,6 +14,7 @@
                 <button class="nav-link" @click="scrollTo('articles')">المقالات</button>
                 <button class="nav-link" @click="scrollTo('videos')">الظهور الأعلامي</button>
                 <button class="nav-link" @click="scrollTo('gallery')">معرض الصور</button>
+                <button class="nav-link" @click="scrollTo('books')">مؤلفاتي</button>
                 <button class="nav-link" @click="scrollTo('contact')">التواصل</button>
             </div>
 
@@ -35,7 +39,9 @@
             <div id="mobile-menu" v-if="isMenuOpen" class="menu-drawer" role="dialog" aria-modal="true"
                 aria-label="قائمة التصفح" @keydown.esc="closeMenu">
                 <div class="drawer-header">
-                    <span class="drawer-logo">{{ logoText }}</span>
+                    <div class="drawer-logo" @click="scrollTo('hero')">
+                        <img :src="logo" alt="Logo" class="logo-img" />
+                    </div>
                     <button class="close-btn" @click="closeMenu" aria-label="إغلاق القائمة">✕</button>
                 </div>
                 <div class="drawer-links">
@@ -45,6 +51,8 @@
                     <button class="drawer-link" @click="scrollTo('volunteer')">التطوع</button>
                     <button class="drawer-link" @click="scrollTo('articles')">المقالات</button>
                     <button class="drawer-link" @click="scrollTo('videos')">الفيديوهات</button>
+                    <button class="drawer-link" @click="scrollTo('gallery')">معرض الصور</button>
+                    <button class="drawer-link" @click="scrollTo('books')">مؤلفاتي</button>
                     <button class="drawer-link" @click="scrollTo('contact')">التواصل</button>
                 </div>
             </div>
@@ -57,8 +65,10 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 
+import logo from '../assets/images/logo.png'
+
 defineProps({
-    logoText: { type: String, default: 'أوس الفوزان' }
+    logoText: { type: String, default: 'د. نجوى المطيري' }
 })
 
 const router = useRouter()
@@ -173,11 +183,15 @@ const scrollTo = (id) => {
 }
 
 .nav-logo {
-    font-size: 1.25rem;
-    font-weight: 700;
-    letter-spacing: -.02em;
-    color: #1B2A3B;
-    transition: color 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    height: 64px;
+    width: auto;
+    object-fit: contain;
 }
 
 /* ── Desktop Links ── */
@@ -319,9 +333,11 @@ const scrollTo = (id) => {
 }
 
 .drawer-logo {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #FFFDFB;
+    cursor: pointer;
+}
+
+.drawer-logo .logo-img {
+    height: 56px;
 }
 
 .close-btn {
