@@ -91,9 +91,9 @@
                         <div>
                             <label class="form-label">الأيقونة</label>
                             <select v-model="card.icon" class="input">
-                                <option value="shield">🛡️ درع</option>
-                                <option value="bolt">⚡ برق</option>
-                                <option value="code">💻 كود</option>
+                                <option value="users">👥 مجموعات (Users)</option>
+                                <option value="book-open">📖 كتاب (Book Open)</option>
+                                <option value="academic-cap">🎓 قبعة تخرج (Academic Cap)</option>
                             </select>
                         </div>
                         <div>
@@ -140,6 +140,64 @@
                         class="text-red-500 hover:text-red-700 mt-6">✕</button>
                 </div>
                 <div v-if="!form.achievements?.length" class="text-center py-4 text-slate-400">لا توجد إنجازات</div>
+            </div>
+
+            <!-- ═══════════ HONORS ═══════════ -->
+            <div class="card p-6 space-y-5">
+                <div class="flex items-center justify-between border-b pb-3">
+                    <h2 class="text-lg font-semibold text-slate-900 dark:text-white">🏅 التكريمات</h2>
+                    <button type="button" @click="addHonor" class="btn btn-secondary btn-sm">+ إضافة</button>
+                </div>
+
+                <div v-for="(h, idx) in form.honors" :key="idx"
+                    class="space-y-3 p-3 border rounded-lg bg-slate-50 dark:bg-slate-800/50 relative">
+                    <button type="button" @click="removeHonor(idx)"
+                        class="absolute top-2 left-2 text-red-500 hover:text-red-700 text-sm font-bold">✕</button>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="form-label">السنة</label>
+                            <input v-model="h.year" type="text" class="input text-center font-bold" />
+                        </div>
+                        <div>
+                            <label class="form-label">العنوان</label>
+                            <input v-model="h.title" type="text" class="input" placeholder="التكريمات" />
+                        </div>
+                        <div>
+                            <label class="form-label">الوصف</label>
+                            <input v-model="h.description" type="text" class="input" />
+                        </div>
+                    </div>
+                </div>
+                <div v-if="!form.honors?.length" class="text-center py-4 text-slate-400">لا توجد تكريمات</div>
+            </div>
+
+            <!-- ═══════════ STATISTICS ═══════════ -->
+            <div class="card p-6 space-y-5">
+                <div class="flex items-center justify-between border-b pb-3">
+                    <h2 class="text-lg font-semibold text-slate-900 dark:text-white">📊 الإحصائيات</h2>
+                    <button type="button" @click="addStatistic" class="btn btn-secondary btn-sm">+ إضافة</button>
+                </div>
+
+                <div v-for="(s, idx) in form.statistics" :key="idx"
+                    class="space-y-3 p-3 border rounded-lg bg-slate-50 dark:bg-slate-800/50 relative">
+                    <button type="button" @click="removeStatistic(idx)"
+                        class="absolute top-2 left-2 text-red-500 hover:text-red-700 text-sm font-bold">✕</button>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="form-label">القيمة</label>
+                            <input v-model="s.value" type="text" class="input text-center font-bold" dir="ltr" />
+                        </div>
+                        <div>
+                            <label class="form-label">العنوان</label>
+                            <input v-model="s.label" type="text" class="input" />
+                        </div>
+                        <div>
+                            <label class="form-label">الوصف</label>
+                            <input v-model="s.description" type="text" class="input" />
+                        </div>
+                    </div>
+                </div>
+                <div v-if="!form.statistics?.length" class="text-center py-4 text-slate-400">لا توجد إحصائيات</div>
             </div>
 
             <!-- ═══════════ CONSULTATIONS ═══════════ -->
@@ -217,6 +275,8 @@
                                 <option value="snapchat">Snapchat</option>
                                 <option value="tiktok">TikTok</option>
                                 <option value="whatsapp">WhatsApp</option>
+                                <option value="telegram">Telegram</option>
+                                <option value="salla">Salla</option>
                             </select>
                         </div>
                         <div class="flex-1">
@@ -229,88 +289,7 @@
                 </div>
             </div>
 
-            <!-- ═══════════ SKILLS ═══════════ -->
-            <!-- <div class="card p-6 space-y-5">
-                <div class="flex items-center justify-between border-b pb-3">
-                    <h2 class="text-lg font-semibold text-slate-900 dark:text-white">🎯 المهارات</h2>
-                    <button type="button" @click="addSkill" class="btn btn-secondary btn-sm">+ إضافة</button>
-                </div>
-                <div v-for="(_, idx) in form.skills" :key="idx" class="flex items-center gap-3 mb-2">
-                    <span class="text-slate-400 font-bold">•</span>
-                    <input v-model="form.skills[idx]" type="text" class="input flex-1" placeholder="اسم المهارة" />
-                    <button type="button" @click="removeSkill(idx)" class="text-red-500 hover:text-red-700">✕</button>
-                </div>
-                <div v-if="!form.skills?.length" class="text-center py-3 text-slate-400">لا توجد مهارات</div>
-            </div> -->
 
-            <!-- ═══════════ LANGUAGES ═══════════ -->
-            <!-- <div class="card p-6 space-y-5">
-                <div class="flex items-center justify-between border-b pb-3">
-                    <h2 class="text-lg font-semibold text-slate-900 dark:text-white">🌐 اللغات</h2>
-                    <button type="button" @click="addLanguage" class="btn btn-secondary btn-sm">+ إضافة</button>
-                </div>
-                <div v-for="(_, idx) in form.languages" :key="idx" class="flex items-center gap-3 mb-2">
-                    <span class="text-slate-400 font-bold">•</span>
-                    <input v-model="form.languages[idx]" type="text" class="input flex-1" placeholder="اسم اللغة" />
-                    <button type="button" @click="removeLanguage(idx)"
-                        class="text-red-500 hover:text-red-700">✕</button>
-                </div>
-                <div v-if="!form.languages?.length" class="text-center py-3 text-slate-400">لا توجد لغات</div>
-            </div> -->
-
-            <!-- ═══════════ CERTIFICATIONS ═══════════ -->
-            <!-- <div class="card p-6 space-y-5">
-                <div class="flex items-center justify-between border-b pb-3">
-                    <h2 class="text-lg font-semibold text-slate-900 dark:text-white">📜 الشهادات</h2>
-                    <button type="button" @click="addCertification" class="btn btn-secondary btn-sm">+ إضافة</button>
-                </div>
-                <div v-for="(c, idx) in form.certifications" :key="idx"
-                    class="flex items-center gap-4 p-3 border rounded-lg bg-slate-50 dark:bg-slate-800/50">
-                    <div class="w-36">
-                        <label class="form-label">النوع</label>
-                        <input v-model="c.type" type="text" class="input" placeholder="نوع الشهادة" />
-                    </div>
-                    <div class="flex-1">
-                        <label class="form-label">الوصف</label>
-                        <input v-model="c.description" type="text" class="input" placeholder="وصف الشهادة" />
-                    </div>
-                    <button type="button" @click="removeCertification(idx)"
-                        class="text-red-500 hover:text-red-700 mt-6">✕</button>
-                </div>
-                <div v-if="!form.certifications?.length" class="text-center py-4 text-slate-400">لا توجد شهادات</div>
-            </div> -->
-
-            <!-- ═══════════ EXPERIENCES ═══════════ -->
-            <!-- <div class="card p-6 space-y-5">
-                <div class="flex items-center justify-between border-b pb-3">
-                    <h2 class="text-lg font-semibold text-slate-900 dark:text-white">💼 الخبرات</h2>
-                    <button type="button" @click="addExperience" class="btn btn-secondary btn-sm">+ إضافة</button>
-                </div>
-                <div v-for="(_, idx) in form.experiences" :key="idx" class="flex items-center gap-3 mb-2">
-                    <span class="text-slate-400 font-bold">•</span>
-                    <input v-model="form.experiences[idx]" type="text" class="input flex-1" placeholder="وصف الخبرة" />
-                    <button type="button" @click="removeExperience(idx)"
-                        class="text-red-500 hover:text-red-700">✕</button>
-                </div>
-                <div v-if="!form.experiences?.length" class="text-center py-3 text-slate-400">لا توجد خبرات</div>
-            </div> -->
-
-            <!-- ═══════════ MEDIA APPEARANCES ═══════════ -->
-            <!-- <div class="card p-6 space-y-5">
-                <div class="flex items-center justify-between border-b pb-3">
-                    <h2 class="text-lg font-semibold text-slate-900 dark:text-white">🎥 الظهور الإعلامي</h2>
-                    <button type="button" @click="addMediaAppearance" class="btn btn-secondary btn-sm">+ إضافة</button>
-                </div>
-                <div v-for="(_, idx) in form.media_appearances" :key="idx" class="flex items-center gap-3 mb-2">
-                    <span class="text-slate-400 font-bold">•</span>
-                    <input v-model="form.media_appearances[idx]" type="text" class="input flex-1"
-                        placeholder="وصف الظهور الإعلامي" />
-                    <button type="button" @click="removeMediaAppearance(idx)"
-                        class="text-red-500 hover:text-red-700">✕</button>
-                </div>
-                <div v-if="!form.media_appearances?.length" class="text-center py-3 text-slate-400">لا يوجد ظهور إعلامي
-                </div>
-            </div> -->
 
             <!-- ═══════════ SAVE ═══════════ -->
             <div class="flex items-center justify-end gap-4 pb-8">
@@ -358,6 +337,8 @@ const form = ref({
     certifications: [],
     experiences: [],
     media_appearances: [],
+    honors: [],
+    statistics: [],
 })
 
 function onHeroImageChange(e) {
@@ -375,6 +356,14 @@ function removeExpertise(i) { form.value.expertise_cards.splice(i, 1) }
 // Achievements
 function addAchievement() { form.value.achievements.push({ num: '', label: '' }) }
 function removeAchievement(i) { form.value.achievements.splice(i, 1) }
+
+// Honors
+function addHonor() { form.value.honors.push({ year: '', title: 'التكريمات', description: '' }) }
+function removeHonor(i) { form.value.honors.splice(i, 1) }
+
+// Statistics
+function addStatistic() { form.value.statistics.push({ value: '', label: '', description: '' }) }
+function removeStatistic(i) { form.value.statistics.splice(i, 1) }
 
 // Volunteering bullets
 function addBullet() { form.value.volunteering_bullets.push('') }
@@ -431,6 +420,8 @@ async function loadData() {
             certifications: d.certifications ? JSON.parse(JSON.stringify(d.certifications)) : [],
             experiences: d.experiences ? [...d.experiences] : [],
             media_appearances: d.media_appearances ? [...d.media_appearances] : [],
+            honors: d.honors ? JSON.parse(JSON.stringify(d.honors)) : [],
+            statistics: d.statistics ? JSON.parse(JSON.stringify(d.statistics)) : [],
         }
     }
     loading.value = false
@@ -466,6 +457,8 @@ async function handleSave() {
     fd.append('certifications', JSON.stringify(form.value.certifications))
     fd.append('experiences', JSON.stringify(form.value.experiences))
     fd.append('media_appearances', JSON.stringify(form.value.media_appearances))
+    fd.append('honors', JSON.stringify(form.value.honors))
+    fd.append('statistics', JSON.stringify(form.value.statistics))
 
     const res = await store.saveSingleton(fd)
     if (res.success) {

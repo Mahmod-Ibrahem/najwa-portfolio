@@ -31,6 +31,8 @@ class HomePage extends Model
         'certifications',
         'experiences',
         'media_appearances',
+        'honors',
+        'statistics',
     ];
 
     protected $casts = [
@@ -43,6 +45,8 @@ class HomePage extends Model
         'certifications' => 'array',
         'experiences' => 'array',
         'media_appearances' => 'array',
+        'honors' => 'array',
+        'statistics' => 'array',
     ];
 
     /**
@@ -125,6 +129,16 @@ class HomePage extends Model
                 '156 مقالاً علمياً في الصحف والمجلات المتخصصة',
                 '16 بحثاً علمياً منشوراً في المجال التربوي',
                 '43 مشاركة علمية في مؤتمرات محلية ودولية',
+            ],
+            'honors' => [
+                ['year' => '2025', 'title' => 'التكريمات', 'description' => 'تكريم التميز بالتأليف والأبحاث العلمية والتطوير على مستوى القصيم'],
+                ['year' => '2024', 'title' => 'التكريمات', 'description' => 'تكريم صانع محتوى المرأة الوحيدة على مستوى المملكة من قبل أمير منطقة القصيم'],
+                ['year' => '2018', 'title' => 'التكريمات', 'description' => 'تكريم صانعة النجاح من قبل مؤسسة العوهلي على مستوى القصيم'],
+            ],
+            'statistics' => [
+                ['value' => '+3100', 'label' => 'الدورات التدريبية الموجهة', 'description' => 'لكافة شرائح المجتمع منذ 13 عام'],
+                ['value' => '+487', 'label' => 'الدورات التدريبية الموجهة', 'description' => 'للأطفال والمراهقين منذ يناير 2024'],
+                ['value' => '+314', 'label' => 'المواضيع التربوية عبر', 'description' => 'اللايف منذ يناير 2024'],
             ],
         ]);
     }
